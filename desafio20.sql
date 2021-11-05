@@ -6,11 +6,14 @@ BEGIN
   SELECT CONCAT(emp.FIRST_NAME, ' ', emp.LAST_NAME) AS `Nome completo`,
   dep.DEPARTMENT_NAME AS `Departamento`,
   jobs.JOB_TITLE AS `Cargo`
-  FROM hr.employees AS emp
+  FROM hr.job_history AS jhis
+  INNER JOIN hr.employees AS emp
+  ON emp.EMPLOYEE_ID = jhis.EMPLOYEE_ID
   INNER JOIN hr.departments AS dep
-  ON emp.department_ID = dep.department_ID
+  ON jhis.department_ID = dep.department_ID
   INNER JOIN hr.jobs as jobs
-  ON emp.JOB_ID = jobs.JOB_ID
+  ON jhis.JOB_ID = jobs.JOB_ID
+  
   WHERE emp.EMAIL = email
   ORDER BY `Departamento`, `Cargo`;
 END $$
